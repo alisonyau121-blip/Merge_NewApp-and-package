@@ -84,18 +84,41 @@ class HkidParser {
     final digits = match.group(2)!;
     final checkDigit = match.group(3)!;
     
+    // ===== Enhanced validation to prevent false positives =====
+    
+    // 1. Check if text contains Passport MRZ characteristics
+    // MRZ lines start with P< and contain many < symbols
+    if (text.contains('P<') || text.startsWith('P<')) {
+      // Likely a passport, not HKID
+      return null;
+    }
+    
+    // 2. Check if text has excessive < symbols (MRZ filler character)
+    final lessThanCount = '<'.allMatches(text).length;
+    if (lessThanCount > 5) {
+      // Too many < symbols, likely passport MRZ
+      return null;
+    }
+    
+    // 3. Validate checksum - only return if valid
     final fullId = '$letters$digits$checkDigit';
     final isValid = validateHkid(letters, digits, checkDigit);
     
+    // Only accept results with valid checksum to reduce false positives
+    if (!isValid) {
+      return null;
+    }
+    
+    // All checks passed, return result
     return HkidResult(
       fields: {
         'ID Number': fullId,
         'Letter Prefix': letters,
         'Digits': digits,
         'Check Digit': checkDigit,
-        'Validation': isValid ? '✓ Valid' : '✗ Invalid',
+        'Validation': '✓ Valid',
       },
-      isValid: isValid,
+      isValid: true,
     );
   }
   

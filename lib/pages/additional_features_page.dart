@@ -75,7 +75,8 @@ class _AdditionalFeaturesPageState extends State<AdditionalFeaturesPage>
     
     // Create AI parser service for enhanced field extraction
     final aiService = AiParserService(
-      apiUrl: 'https://amg-backend-dev-api3.azurewebsites.net/api/chat',
+      //apiUrl: 'https://amg-backend-dev-api3.azurewebsites.net/api/chat',
+      apiUrl: 'http://10.0.2.2:8006/api/chat',  // Android emulator localhost alias
       apiKey: '3razU1sHTAPGdCL5tKSMpOIbkxgJ9E6j',
     );
     

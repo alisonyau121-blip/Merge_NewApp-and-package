@@ -58,25 +58,32 @@ class EnhancedIdParser {
   }
   
   /// Detect ID types using pattern matching
+  /// 
+  /// Performance optimized: Returns ONLY the first matched ID type
+  /// Priority order: HKID > China ID > Passport
+  /// 
+  /// This prevents multiple detections and reduces API calls
   List<String> _detectIdTypes(String text) {
-    final types = <String>[];
-    
-    // Check for HKID pattern
+    // Check for HKID pattern first (highest priority)
     if (HkidParser.parse(text) != null) {
-      types.add('HKID');
+      _log.info('Detected: HKID');
+      return ['HKID'];  // Return immediately
     }
     
-    // Check for China ID pattern
+    // Check for China ID pattern (second priority)
     if (ChinaIdParser.parse(text) != null) {
-      types.add('ChinaID');
+      _log.info('Detected: China ID');
+      return ['ChinaID'];  // Return immediately
     }
     
-    // Check for Passport MRZ pattern
+    // Check for Passport MRZ pattern (lowest priority)
     if (PassportMrzParser.parse(text) != null) {
-      types.add('Passport');
+      _log.info('Detected: Passport');
+      return ['Passport'];  // Return immediately
     }
     
-    return types;
+    _log.info('No ID pattern detected');
+    return [];  // No ID found
   }
   
   /// Parse HKID with AI enhancement
