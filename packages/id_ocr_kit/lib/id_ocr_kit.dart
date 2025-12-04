@@ -21,6 +21,12 @@ export 'src/adapters/syncfusion_pdf_adapter.dart';
 // ID recognition service (OCR + parsing)
 export 'services/id_recognition_service.dart';
 
+// AI-powered parser service (optional enhancement)
+export 'services/ai_parser_service.dart';
+
+// Enhanced ID parser with AI integration
+export 'services/enhanced_id_parser.dart';
+
 // PDF form filling service
 export 'services/pdf_form_service.dart';
 

@@ -35,7 +35,7 @@ class MlKitOcrAdapter implements OcrProvider {
       print('🔄 Initializing Chinese text recognizer...');
       print('📥 First-time use may download Chinese model (~10MB, requires internet)');
       
-      _chineseRecognizer = TextRecognizer(script: TextRecognitionScript.chinese);
+    _chineseRecognizer = TextRecognizer(script: TextRecognitionScript.chinese);
       _chineseInitialized = true;
       
       print('✅ Chinese text recognizer initialized successfully!');
@@ -61,7 +61,7 @@ class MlKitOcrAdapter implements OcrProvider {
     
     try {
       // Latin OCR (for English, numbers, passport MRZ)
-      final latinText = await _latinRecognizer.processImage(inputImage);
+    final latinText = await _latinRecognizer.processImage(inputImage);
       if (latinText.text.isNotEmpty) {
         for (final line in latinText.text.split('\n')) {
           final trimmed = line.trim();

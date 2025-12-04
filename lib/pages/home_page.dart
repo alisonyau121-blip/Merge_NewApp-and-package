@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'id_ocr_full_feature_page.dart';
+import 'additional_features_page.dart';
 import 'test_images_page.dart';
+import '../test_network.dart';
+// import 'test_figma_page.dart'; // Commented out - file removed
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,6 +21,43 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Scan ID Button (New Figma Design)
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const IdOcrFullFeaturePage(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.qr_code_scanner, size: 24),
+                  label: const Text(
+                    'Scan ID',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffffb800), // Yellow theme
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
+                    elevation: 4,
+                    shadowColor: const Color(0xffffb800).withOpacity(0.4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+              
               // App Icon
               Container(
                 width: 120,
@@ -54,25 +94,27 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 48),
 
-              // Main Button
-              ElevatedButton.icon(
+              // Alternative: Full Feature Demo (Additional Features)
+              OutlinedButton.icon(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const IdOcrFullFeaturePage(),
+                      builder: (context) => const AdditionalFeaturesPage(),
                     ),
                   );
                 },
-                icon: const Icon(Icons.arrow_forward, size: 24),
+                icon: const Icon(Icons.settings, size: 20),
                 label: const Text(
-                  'Direct to another app',
-                  style: TextStyle(fontSize: 16),
+                  'Full Feature Demo',
+                  style: TextStyle(fontSize: 14),
                 ),
-                style: ElevatedButton.styleFrom(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xff4a5f8c),
+                  side: const BorderSide(color: Color(0xff4a5f8c)),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
+                    horizontal: 24,
+                    vertical: 12,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -104,6 +146,64 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
+              // Network Test Button (for debugging API issues)
+              OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TestNetworkPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.wifi_find, size: 20),
+                label: const Text('Test Network'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.orange,
+                  side: const BorderSide(color: Colors.orange),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Test Figma Button - COMMENTED OUT (file removed)
+              /*
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TestFigmaPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.palette, size: 20),
+                label: const Text(
+                  'Test Figma',
+                  style: TextStyle(fontSize: 14),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  elevation: 3,
+                ),
+              ),
+              const SizedBox(height: 16),
+              */
 
               // Info Card
               Card(

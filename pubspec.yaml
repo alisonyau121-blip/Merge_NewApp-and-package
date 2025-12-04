@@ -39,7 +39,8 @@ dependencies:
   image_picker: ^1.1.2
   google_mlkit_text_recognition: ^0.15.0
   path_provider: ^2.1.4
-  syncfusion_flutter_pdf: ^31.2.10 
+  syncfusion_flutter_pdf: ^31.2.10
+  syncfusion_flutter_pdfviewer: ^31.2.15 
   
   # PDF dependencies
   pdf: ^3.11.1
@@ -55,6 +56,18 @@ dependencies:
 
   # Signature drawing widget
   signature: ^5.5.0
+
+  # Camera for real-time preview (Test Figma feature)
+  camera: ^0.10.5+5
+  
+  # Logging for debug
+  logging: ^1.2.0
+
+  # HTTP client for API calls
+  http: ^1.2.0
+
+  # Test Figma - Document Upload feature
+  dotted_border: ^2.1.0    # Dotted border widget for upload area
 
 dev_dependencies:
   flutter_test:

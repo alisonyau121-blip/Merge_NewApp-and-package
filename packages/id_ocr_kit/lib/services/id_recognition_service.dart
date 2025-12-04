@@ -1,6 +1,8 @@
 import 'dart:io';
 import '../providers/ocr_provider.dart';
 import 'id_parser.dart';
+import 'enhanced_id_parser.dart';
+import 'ai_parser_service.dart';
 
 /// High-level service for ID recognition and parsing
 /// 
@@ -25,13 +27,19 @@ import 'id_parser.dart';
 /// ```
 class IdRecognitionService {
   final OcrProvider _ocrProvider;
+  final EnhancedIdParser _enhancedParser;
   
   /// Creates a new ID recognition service
   /// 
   /// [ocrProvider] must be provided by the consumer app to handle
   /// the actual OCR processing (using ML Kit, Tesseract, etc.)
-  IdRecognitionService({required OcrProvider ocrProvider})
-      : _ocrProvider = ocrProvider;
+  /// 
+  /// [aiParserService] is optional - if provided, enables AI-enhanced parsing
+  IdRecognitionService({
+    required OcrProvider ocrProvider,
+    AiParserService? aiParserService,
+  })  : _ocrProvider = ocrProvider,
+        _enhancedParser = EnhancedIdParser(aiService: aiParserService);
   
   /// Recognizes and parses ID documents from an image
   /// 
@@ -69,8 +77,8 @@ class IdRecognitionService {
           .where((line) => line.isNotEmpty)
           .toList();
       
-      // Step 2: Parse IDs from OCR text (pure domain logic)
-      final parsedIds = IdParser.parseAll(ocrText);
+      // Step 2: Parse IDs from OCR text with AI enhancement
+      final parsedIds = await _enhancedParser.parseAll(ocrText);
       
       final processingTime = DateTime.now().difference(startTime);
       
